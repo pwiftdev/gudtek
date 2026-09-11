@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f6f2" />
+    <meta
+      name="description"
+      content="Small problems. Gud teks. Five free browser tools for images, text, links, colors, and QR codes."
+    />
+    <title>small problems. gud teks.</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/app.js"></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="wordmark" href="#" aria-label="Gud Tek home"
+          >gud tek<span class="wordmark-dot">.</span></a
+        >
+        <span class="edition">small tools. big technology.</span>
+        <nav class="header-actions" aria-label="Project links">
+          <a class="header-link" href="#">all teks</a>
+          <a
+            class="header-link header-x"
+            href="https://x.com/gudtek_stonks"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Gud Tek on X"
+            >X <span aria-hidden="true">↗</span></a
+          >
+          <div class="header-contract">
+            <button
+              id="copy-ca"
+              class="primary-button header-ca"
+              type="button"
+              aria-controls="ca-status"
+              aria-expanded="false"
+            >
+              COPY CA
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="7" y="7" width="10" height="10" rx="2" />
+                <path d="M12 4V3H3v9h1" />
+              </svg>
+            </button>
+            <p id="ca-status" class="ca-status" role="status" hidden>
+              CA: to be announced soon.
+            </p>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <nav id="tool-nav" class="tool-nav" aria-label="Tools" hidden></nav>
+        <div id="library"></div>
+        <div id="file-tool" hidden>
+          <section class="hero" aria-labelledby="page-title">
+            <span class="eyebrow"
+              ><span class="status-dot"></span> a very serious technological
+              breakthrough</span
+            >
+            <h1 id="page-title">
+              why file
+              <span class="title-big"
+                >big<svg viewBox="0 0 250 18" aria-hidden="true">
+                  <path
+                    d="M4 11 Q111 1 243 8 M18 16 Q122 7 223 12"
+                  /></svg></span
+              >.
+            </h1>
+            <p class="hero-description">
+              same picture. less picture.<br class="mobile-break" />
+              your storage says thank you.
+            </p>
+          </section>
+
+          <section class="workspace" aria-label="Image compressor">
+            <div class="tool-column">
+              <div class="tool-heading">
+                <span
+                  ><span class="step-number">01</span> insert unnecessarily
+                  large image</span
+                ><span class="hand-note">we can fix him</span>
+              </div>
+              <div class="drop-zone" id="drop-zone" aria-busy="false">
+                <input
+                  id="file-input"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  hidden
+                />
+                <div id="upload-view" class="upload-view">
+                  <div class="file-drawing" aria-hidden="true">
+                    <svg viewBox="0 0 76 88" fill="none">
+                      <path d="M13 4 48 3 65 21 63 79 12 82 13 4Z" />
+                      <path
+                        d="m48 4-1 19 17-2M24 52l9-10 9 8 8-5 5 17-33 1 2-11Z"
+                      />
+                      <circle cx="29" cy="30" r="4" />
+                    </svg>
+                    <span>too big :(</span>
+                  </div>
+                  <h2>drop big file here</h2>
+                  <p>or do it the old-fashioned way</p>
+                  <button class="primary-button" id="choose-file" type="button">
+                    make file small <span aria-hidden="true">↗</span>
+                  </button>
+                  <span class="file-hint">JPG, PNG, WEBP · up to 40 MB</span>
+                </div>
+
+                <div id="processing-view" class="processing-view" hidden>
+                  <span class="loading-shape" aria-hidden="true"></span>
+                  <h2>doing the tek<span class="loading-dots">...</span></h2>
+                  <p>asking the pixels to sit closer together.</p>
+                </div>
+
+                <div id="result-view" class="result-view" hidden>
+                  <div class="result-topline">
+                    <span class="result-label" id="result-label"
+                      >file small now.</span
+                    ><span id="savings-badge" class="savings-badge"></span>
+                  </div>
+                  <div class="preview-wrap">
+                    <img id="result-preview" alt="Your compressed image" />
+                  </div>
+                  <p id="file-name" class="file-name"></p>
+                  <div class="size-comparison">
+                    <span id="original-size" class="original-size"></span
+                    ><span class="size-arrow" aria-hidden="true">→</span
+                    ><strong id="compressed-size"></strong>
+                  </div>
+                  <p id="result-message" class="result-message"></p>
+                  <a id="download-file" class="primary-button" download
+                    >take file <span aria-hidden="true">↓</span></a
+                  >
+                  <button id="start-over" class="text-button" type="button">
+                    do another one <span aria-hidden="true">↻</span>
+                  </button>
+                </div>
+              </div>
+              <p
+                id="error-message"
+                class="error-message"
+                role="alert"
+                hidden
+              ></p>
+
+              <fieldset class="compression-options">
+                <legend>how small we talking?</legend>
+                <div class="option-row">
+                  <label
+                    ><input
+                      type="radio"
+                      name="compression"
+                      value="gentle"
+                    /><span>a lil smaller</span></label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      name="compression"
+                      value="balanced"
+                      checked /><span
+                      >much smaller
+                      <span
+                        class="recommended-dot"
+                        aria-hidden="true"
+                      ></span></span
+                  ></label>
+                  <label
+                    ><input type="radio" name="compression" value="tiny" /><span
+                      >absolutely tiny</span
+                    ></label
+                  >
+                </div>
+                <p id="quality-note" class="quality-note">
+                  the sweet spot. looks gud. weighs less.
+                </p>
+              </fieldset>
+              <p class="privacy-note">
+                <svg viewBox="0 0 16 18" aria-hidden="true" fill="none">
+                  <rect x="2" y="8" width="12" height="8" rx="2" />
+                  <path d="M5 8V5a3 3 0 0 1 6 0v3M8 11v2" />
+                </svg>
+                stays in your browser. we don't want your files.
+              </p>
+            </div>
+
+            <aside class="meme-column" aria-label="Gud Tek approved">
+              <div class="meme-caption">the engineer behind this</div>
+              <svg
+                class="caption-arrow"
+                viewBox="0 0 75 65"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path d="M5 4c46-8 67 21 41 51m-1-17 1 18 18-6" />
+              </svg>
+              <img
+                class="meme-image"
+                src="/gud-tek-cat.jpg"
+                alt="A teary-eyed cat giving a thumbs-up beneath handwritten words Gud Tek"
+              />
+              <div class="approval-stamp">
+                <span class="status-dot"></span> it ain't much but it's gud tek
+              </div>
+              <p class="meme-footnote">years of research. one button.</p>
+            </aside>
+          </section>
+
+          <section
+            class="explainer"
+            id="the-tek"
+            aria-labelledby="explainer-title"
+          >
+            <div class="explainer-intro">
+              <span class="eyebrow">the tek, explained</span>
+              <h2 id="explainer-title">less bytes.<br />same vibes.</h2>
+            </div>
+            <div class="explanation">
+              <span class="explanation-number">01 /</span>
+              <h3>you give big image.</h3>
+              <p>
+                That screenshot, photo, or meme that's taking up too much room.
+              </p>
+            </div>
+            <div class="explanation">
+              <span class="explanation-number">02 /</span>
+              <h3>we do computer stuff.</h3>
+              <p>
+                Your browser makes a lighter WebP. Smaller settings lose some
+                detail. Animated images become stills.
+              </p>
+            </div>
+            <div class="explanation">
+              <span class="explanation-number">03 /</span>
+              <h3>you take small image.</h3>
+              <p>
+                Download it. Send it. Keep living your life. You're welcome.
+              </p>
+            </div>
+          </section>
+        </div>
+        <div id="extra-tools"></div>
+      </main>
+
+      <footer class="site-footer">
+        <span class="footer-brand">gud tek.</span
+        ><span>unnecessarily useful.</span
+        ><span class="footer-end"
+          >100% tek. <span class="muted">probably.</span></span
+        >
+      </footer>
+    </div>
+  </body>
+</html>
