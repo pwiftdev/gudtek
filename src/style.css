@@ -120,6 +120,22 @@ strong {
   stroke: currentColor;
   stroke-width: 1.2;
 }
+.header-ca [data-copy-label] {
+  font-size: inherit;
+}
+.ca-status textarea {
+  margin-top: 8px;
+  min-height: 0;
+  font-family: monospace;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  resize: none;
+}
+.ca-status p {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #954b36;
+}
 .ca-status {
   position: absolute;
   top: calc(100% + 12px);

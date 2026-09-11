@@ -20,9 +20,10 @@ export function bindCopy(buttonId, valueId, errorId) {
       setError(errorId);
       announce("copied. go paste it somewhere.");
       const button = get(buttonId);
-      button.textContent = "copied.";
+      const label = button.querySelector("[data-copy-label]") ?? button;
+      label.textContent = "copied.";
       setTimeout(() => {
-        button.textContent = button.dataset.label;
+        label.textContent = button.dataset.label;
       }, 1800);
     } catch {
       field.focus();

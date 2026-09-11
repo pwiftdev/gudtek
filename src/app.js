@@ -1,5 +1,5 @@
 import { TOOLS, libraryTemplate, toolsTemplate } from "./tool-templates.js";
-import { get, announce } from "./ui.js";
+import { get, announce, bindCopy } from "./ui.js";
 import { initTextLink } from "./text-link.js";
 import { initColor } from "./color.js";
 import { initQr } from "./qr.js";
@@ -24,10 +24,10 @@ const loadColor = initColor();
 initQr();
 
 get("copy-ca").addEventListener("click", () => {
-  const status = get("ca-status");
-  status.hidden = !status.hidden;
-  get("copy-ca").setAttribute("aria-expanded", String(!status.hidden));
+  get("ca-status").hidden = false;
+  get("copy-ca").setAttribute("aria-expanded", "true");
 });
+bindCopy("copy-ca", "ca-address", "ca-error");
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !get("ca-status").hidden) {
     get("ca-status").hidden = true;

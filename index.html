@@ -37,16 +37,20 @@
               type="button"
               aria-controls="ca-status"
               aria-expanded="false"
+              data-label="COPY CA"
             >
-              COPY CA
+              <span data-copy-label>COPY CA</span>
               <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <rect x="7" y="7" width="10" height="10" rx="2" />
                 <path d="M12 4V3H3v9h1" />
               </svg>
             </button>
-            <p id="ca-status" class="ca-status" role="status" hidden>
-              CA: to be announced soon.
-            </p>
+            <div id="ca-status" class="ca-status" hidden>
+              <label for="ca-address">$TEK contract address</label>
+              <textarea id="ca-address" readonly rows="3" spellcheck="false">
+4LUd8oKCfnwjutWi1bJ4oW5qsGXjdkwvwvAnEGLpzsKN</textarea>
+              <p id="ca-error" role="alert" hidden></p>
+            </div>
           </div>
         </nav>
       </header>

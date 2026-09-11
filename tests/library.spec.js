@@ -337,7 +337,7 @@ test("QR encoder failure leaves no download and allows another attempt", async (
   await expect(page.locator("#qr-error")).toBeHidden();
 });
 
-test("project lore and header links are present, and an unannounced CA never copies a placeholder", async ({
+test("project lore and header links are present, and COPY CA copies the exact address", async ({
   page,
 }) => {
   await page.goto("/");
@@ -351,26 +351,37 @@ test("project lore and header links are present, and an unannounced CA never cop
     page.getByRole("link", { name: "Gud Tek on X" }),
   ).toHaveAttribute("href", "https://x.com/gudtek_stonks");
   await page.evaluate(() => {
-    navigator.clipboard.writeText = async () => {
-      window.didCopyCa = true;
+    navigator.clipboard.writeText = async (value) => {
+      window.copiedCa = value;
     };
   });
   await page.locator("#copy-ca").click();
-  await expect(page.locator("#ca-status")).toHaveText(
-    "CA: to be announced soon.",
+  await expect(page.locator("#ca-address")).toHaveValue(
+    "4LUd8oKCfnwjutWi1bJ4oW5qsGXjdkwvwvAnEGLpzsKN",
   );
   await expect(page.locator("#ca-status")).toBeVisible();
   await expect(page.locator("#copy-ca")).toHaveAttribute(
     "aria-expanded",
     "true",
   );
-  expect(await page.evaluate(() => Boolean(window.didCopyCa))).toBe(false);
+  expect(await page.evaluate(() => window.copiedCa)).toBe(
+    "4LUd8oKCfnwjutWi1bJ4oW5qsGXjdkwvwvAnEGLpzsKN",
+  );
+  await expect(page.locator("#copy-ca [data-copy-label]")).toHaveText(
+    "copied.",
+  );
+  await expect(page.locator("#copy-ca svg")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.locator("#ca-status")).toBeHidden();
   await expect(page.locator("#copy-ca")).toHaveAttribute(
     "aria-expanded",
     "false",
   );
+  await page.evaluate(() => {
+    navigator.clipboard.writeText = async () => {
+      throw new Error("denied");
+    };
+  });
   await page.setViewportSize({ width: 320, height: 740 });
   expect(
     await page.evaluate(
@@ -378,6 +389,8 @@ test("project lore and header links are present, and an unannounced CA never cop
     ),
   ).toBe(true);
   await page.locator("#copy-ca").click();
+  await expect(page.locator("#ca-error")).toContainText("copy it manually");
+  await expect(page.locator("#ca-address")).toBeFocused();
   const bounds = await page.locator("#ca-status").boundingBox();
   expect(bounds.x).toBeGreaterThanOrEqual(0);
   expect(bounds.x + bounds.width).toBeLessThanOrEqual(320);
